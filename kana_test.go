@@ -176,3 +176,26 @@ func TestHanToZen(t *testing.T) {
 		}
 	}
 }
+
+func TestZenAnythingToHan(t *testing.T) {
+	tests := []struct {
+		input string
+		want  string
+	}{
+		{
+			input: "あいうえお",
+			want:  "ｱｲｳｴｵ",
+		},
+		{
+			input: "ｱｲうｴｵ",
+			want:  "ｱｲｳｴｵ",
+		},
+	}
+
+	for i, test := range tests {
+		got := kanaconv.ZenkakuToHankaku(kanaconv.HiraganaToKatakana(test.input))
+		if got != test.want {
+			t.Errorf("[%d] got %s, but want %s", i, got, test.want)
+		}
+	}
+}
